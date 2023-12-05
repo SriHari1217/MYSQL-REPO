@@ -1,0 +1,246 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignments        |
+| day1               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use assignments;
+Database changed
+mysql> create table studentprofile(
+    -> rollno int,
+    -> name varchar(20),
+    -> dob date,
+    -> department varchar(20),
+    -> city varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table marks(
+    -> rollno int,
+    -> name varchar(20),
+    -> mark1 int,
+    -> mark2 int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into studentprofile values(101,'Adam','2003-06-05','ECE','Covai'),(102,'Eve','2003-05-25','EEE','Erode'),(103,'vimal','2003-08-15','MECH','delhi'),(104,'Adhi','2003-03-19','AI-DS','Rasipuram'),(105,'Chloe','2003-10-25','ECE','Mumbai');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into marks(103,'vimal',93,95),(101,'Adam',91,98),(104,'Adhi',89,99),(105,'Chloe',100,95),(102,'Eve',91,99);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '103,'vimal',93,95),(101,'Adam',91,98),(104,'Adhi',89,99),(105,'Chloe',100,95),(1' at line 1
+mysql> insert into marks values(103,'vimal',93,95),(101,'Adam',91,98),(104,'Adhi',89,99),(105,'Chloe',100,95),(102,'Eve',91,99);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentprofile
+    -> ;
++--------+-------+------------+------------+-----------+
+| rollno | name  | dob        | department | city      |
++--------+-------+------------+------------+-----------+
+|    101 | Adam  | 2003-06-05 | ECE        | Covai     |
+|    102 | Eve   | 2003-05-25 | EEE        | Erode     |
+|    103 | vimal | 2003-08-15 | MECH       | delhi     |
+|    104 | Adhi  | 2003-03-19 | AI-DS      | Rasipuram |
+|    105 | Chloe | 2003-10-25 | ECE        | Mumbai    |
++--------+-------+------------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from marks;
++--------+-------+-------+-------+
+| rollno | name  | mark1 | mark2 |
++--------+-------+-------+-------+
+|    103 | vimal |    93 |    95 |
+|    101 | Adam  |    91 |    98 |
+|    104 | Adhi  |    89 |    99 |
+|    105 | Chloe |   100 |    95 |
+|    102 | Eve   |    91 |    99 |
++--------+-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table marks add total int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update marks set total=mark1+mark2;
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> alter table studentprofile rename dob to dateofbirth;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to dateofbirth' at line 1
+mysql> alter table studentprofile rename 'dob' to 'dateofbirth';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''dob' to 'dateofbirth'' at line 1
+mysql> alter table studentprofile rename column dob to dateofbirth;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from marks;
++--------+-------+-------+-------+-------+
+| rollno | name  | mark1 | mark2 | total |
++--------+-------+-------+-------+-------+
+|    103 | vimal |    93 |    95 |   188 |
+|    101 | Adam  |    91 |    98 |   189 |
+|    104 | Adhi  |    89 |    99 |   188 |
+|    105 | Chloe |   100 |    95 |   195 |
+|    102 | Eve   |    91 |    99 |   190 |
++--------+-------+-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentprofile;
++--------+-------+-------------+------------+-----------+
+| rollno | name  | dateofbirth | department | city      |
++--------+-------+-------------+------------+-----------+
+|    101 | Adam  | 2003-06-05  | ECE        | Covai     |
+|    102 | Eve   | 2003-05-25  | EEE        | Erode     |
+|    103 | vimal | 2003-08-15  | MECH       | delhi     |
+|    104 | Adhi  | 2003-03-19  | AI-DS      | Rasipuram |
+|    105 | Chloe | 2003-10-25  | ECE        | Mumbai    |
++--------+-------+-------------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> desc marks;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| mark1  | int         | YES  |     | NULL    |       |
+| mark2  | int         | YES  |     | NULL    |       |
+| total  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc studentprofile;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| rollno      | int         | YES  |     | NULL    |       |
+| name        | varchar(20) | YES  |     | NULL    |       |
+| dateofbirth | date        | YES  |     | NULL    |       |
+| department  | varchar(20) | YES  |     | NULL    |       |
+| city        | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from studentprofile where rollno=104;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studentprofile;
++--------+-------+-------------+------------+--------+
+| rollno | name  | dateofbirth | department | city   |
++--------+-------+-------------+------------+--------+
+|    101 | Adam  | 2003-06-05  | ECE        | Covai  |
+|    102 | Eve   | 2003-05-25  | EEE        | Erode  |
+|    103 | vimal | 2003-08-15  | MECH       | delhi  |
+|    105 | Chloe | 2003-10-25  | ECE        | Mumbai |
++--------+-------+-------------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from marks;
++--------+-------+-------+-------+-------+
+| rollno | name  | mark1 | mark2 | total |
++--------+-------+-------+-------+-------+
+|    103 | vimal |    93 |    95 |   188 |
+|    101 | Adam  |    91 |    98 |   189 |
+|    104 | Adhi  |    89 |    99 |   188 |
+|    105 | Chloe |   100 |    95 |   195 |
+|    102 | Eve   |    91 |    99 |   190 |
++--------+-------+-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table marks add average decimal(6,2),grade varchar(5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'grade varchar(5)' at line 1
+mysql> alter table marks add average decimal(6,2);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table marks add grade varchar(5);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update marks set average=total/2;
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> update marks set grade='pass' where (mark1&mark2)>40;
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from marks;
++--------+-------+-------+-------+-------+---------+-------+
+| rollno | name  | mark1 | mark2 | total | average | grade |
++--------+-------+-------+-------+-------+---------+-------+
+|    103 | vimal |    93 |    95 |   188 |   94.00 | pass  |
+|    101 | Adam  |    91 |    98 |   189 |   94.50 | pass  |
+|    104 | Adhi  |    89 |    99 |   188 |   94.00 | pass  |
+|    105 | Chloe |   100 |    95 |   195 |   97.50 | pass  |
+|    102 | Eve   |    91 |    99 |   190 |   95.00 | pass  |
++--------+-------+-------+-------+-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update marks set grade='fail' where (mark1&mark2)<40;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update marks set mark2=30 where rollno=104;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from marks;
++--------+-------+-------+-------+-------+---------+-------+
+| rollno | name  | mark1 | mark2 | total | average | grade |
++--------+-------+-------+-------+-------+---------+-------+
+|    103 | vimal |    93 |    95 |   188 |   94.00 | pass  |
+|    101 | Adam  |    91 |    98 |   189 |   94.50 | pass  |
+|    104 | Adhi  |    89 |    30 |   188 |   94.00 | pass  |
+|    105 | Chloe |   100 |    95 |   195 |   97.50 | pass  |
+|    102 | Eve   |    91 |    99 |   190 |   95.00 | pass  |
++--------+-------+-------+-------+-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update marks set grade='fail' where (mark1&mark2)<40;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from marks;
++--------+-------+-------+-------+-------+---------+-------+
+| rollno | name  | mark1 | mark2 | total | average | grade |
++--------+-------+-------+-------+-------+---------+-------+
+|    103 | vimal |    93 |    95 |   188 |   94.00 | pass  |
+|    101 | Adam  |    91 |    98 |   189 |   94.50 | pass  |
+|    104 | Adhi  |    89 |    30 |   188 |   94.00 | fail  |
+|    105 | Chloe |   100 |    95 |   195 |   97.50 | pass  |
+|    102 | Eve   |    91 |    99 |   190 |   95.00 | pass  |
++--------+-------+-------+-------+-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table marks drop column average;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from marks;
++--------+-------+-------+-------+-------+-------+
+| rollno | name  | mark1 | mark2 | total | grade |
++--------+-------+-------+-------+-------+-------+
+|    103 | vimal |    93 |    95 |   188 | pass  |
+|    101 | Adam  |    91 |    98 |   189 | pass  |
+|    104 | Adhi  |    89 |    30 |   188 | fail  |
+|    105 | Chloe |   100 |    95 |   195 | pass  |
+|    102 | Eve   |    91 |    99 |   190 | pass  |
++--------+-------+-------+-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> truncate table marks;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from marks;
+Empty set (0.00 sec)
+
+mysql> notee

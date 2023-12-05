@@ -1,0 +1,197 @@
+mysql> create table boat(
+    -> boatid int primary key,
+    -> btype char(1) check('R','P',M),
+    -> color varchar(10) not nullghjk;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','P',M),
+color varchar(10) not nullghjk' at line 3
+mysql> create table boat(
+    ->      boatid int primary key,
+    ->      btype char(1) check( btype in ('R','P','M')),
+    ->      color varchar(10) not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table sailor (
+    -> sailorid int primary key,
+    -> sname varchar(20) not null,
+    -> age int not null,
+    -> rating decimal(2,1) not null);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table reserves (
+    -> rid int primary key,
+    -> boatid int,
+    -> sailorid int,
+    -> shifts char(2) check(shifts in ('FN','AN')),
+    -> foreign key(boatid) references boat(boatid) on delete cascade,
+    -> foreign key(sailorid) references sailor(sailorid) on delete set null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into boat values (1001,'P','red'),(1002,'M','blue'),(1003,'R','yellow'),(1004,'P','green'),(1005,'M','grey');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from boat;
++--------+-------+--------+
+| boatid | btype | color  |
++--------+-------+--------+
+|   1001 | P     | red    |
+|   1002 | M     | blue   |
+|   1003 | R     | yellow |
+|   1004 | P     | green  |
+|   1005 | M     | grey   |
++--------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> desc boat;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| boatid | int         | NO   | PRI | NULL    |       |
+| btype  | char(1)     | YES  |     | NULL    |       |
+| color  | varchar(10) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+mysql> alter table sailor add check(age>21);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sailor modify rating int ;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sailor add check(rating in (1,10));
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE
+    -> FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+    -> WHERE TABLE_NAME='sailor';
++-----------------+-----------------+
+| CONSTRAINT_NAME | CONSTRAINT_TYPE |
++-----------------+-----------------+
+| PRIMARY         | PRIMARY KEY     |
+| sailor_chk_1    | CHECK           |
+| sailor_chk_2    | CHECK           |
++-----------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table sailor add check(rating between 1 and 10);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into sailor values (101,'Sai',27,7),(102,'Ram',29,8),(103,'Tony',29,5),(104,'venu',32,9),(105,'William',26,7);
+ERROR 3819 (HY000): Check constraint 'sailor_chk_2' is violated.
+mysql> desc sailor;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sailorid | int         | NO   | PRI | NULL    |       |
+| sname    | varchar(20) | NO   |     | NULL    |       |
+| age      | int         | NO   |     | NULL    |       |
+| rating   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table sailor add check(rating=>1 and rating<=10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=>1 and rating<=10)' at line 1
+mysql> alter table sailor add check(rating>=1 and rating<=10);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into sailor values (101,'Sai',27,7),(102,'Ram',29,8),(103,'Tony',29,5),(104,'venu',32,9),(105,'William',26,7);
+ERROR 3819 (HY000): Check constraint 'sailor_chk_2' is violated.
+mysql> drop table sailor;
+ERROR 3730 (HY000): Cannot drop table 'sailor' referenced by a foreign key constraint 'reserves_ibfk_2' on table 'reserves'.
+mysql> insert into sailor values (101,'Sai',17,7),(102,'Ram',19,8),(103,'Tony',19,5),(104,'venu',17,9),(105,'William',19,5);
+ERROR 3819 (HY000): Check constraint 'sailor_chk_1' is violated.
+mysql> insert into sailor values (101,'Sai',24,7),(102,'Ram',29,8),(103,'Tony',39,5),(104,'venu',37,9),(105,'William',49,5);
+ERROR 3819 (HY000): Check constraint 'sailor_chk_2' is violated.
+mysql> insert into sailor values (101,'Sai',24,11),(102,'Ram',29,11),(103,'Tony',39,11),(104,'venu',37,11),(105,'William',49,11);
+ERROR 3819 (HY000): Check constraint 'sailor_chk_2' is violated.
+mysql> insert into sailor values (101,'Sai',24,7),(102,'Ram',29,8),(103,'Tony',39,9),(104,'venu',37,6),(105,'William',49,7);
+ERROR 3819 (HY000): Check constraint 'sailor_chk_2' is violated.
+mysql> desc sailor;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sailorid | int         | NO   | PRI | NULL    |       |
+| sname    | varchar(20) | NO   |     | NULL    |       |
+| age      | int         | NO   |     | NULL    |       |
+| rating   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table sailor drop check sailor_chk_2;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sailor add check(rating>=1 and rating<=10);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into sailor values (101,'Sai',27,7),(102,'Ram',29,8),(103,'Tony',29,5),(104,'venu',32,9),(105,'William',26,7);
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from sailor;
++----------+---------+-----+--------+
+| sailorid | sname   | age | rating |
++----------+---------+-----+--------+
+|      101 | Sai     |  27 |      7 |
+|      102 | Ram     |  29 |      8 |
+|      103 | Tony    |  29 |      5 |
+|      104 | venu    |  32 |      9 |
+|      105 | William |  26 |      7 |
++----------+---------+-----+--------+
+5 rows in set (0.00 sec)
+
+mysql> desc reserves;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| rid      | int     | NO   | PRI | NULL    |       |
+| boatid   | int     | YES  | MUL | NULL    |       |
+| sailorid | int     | YES  | MUL | NULL    |       |
+| shifts   | char(2) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table reserves add column date_of_travel date;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc reserves;
++----------------+---------+------+-----+---------+-------+
+| Field          | Type    | Null | Key | Default | Extra |
++----------------+---------+------+-----+---------+-------+
+| rid            | int     | NO   | PRI | NULL    |       |
+| boatid         | int     | YES  | MUL | NULL    |       |
+| sailorid       | int     | YES  | MUL | NULL    |       |
+| shifts         | char(2) | YES  |     | NULL    |       |
+| date_of_travel | date    | YES  |     | NULL    |       |
++----------------+---------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table reserves modify  date_of_travel date not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into reserves values (1,1001,101,'FN','2019-02-15'),(3,1002,102,'FN','2020-06-15'),(3,1003,103,'AN','2020-09-17'),(4,1004,104,'AN','2020-07-24'),(5,1005,105,'AN','2019-11-20');
+ERROR 1062 (23000): Duplicate entry '3' for key 'reserves.PRIMARY'
+mysql> insert into reserves values (1,1001,101,'FN','2019-02-15'),(2,1002,102,'FN','2020-06-15'),(3,1003,103,'AN','2020-09-17'),(4,1004,104,'AN','2020-07-24'),(5,1005,105,'AN','2019-11-20');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from reserves;
++-----+--------+----------+--------+----------------+
+| rid | boatid | sailorid | shifts | date_of_travel |
++-----+--------+----------+--------+----------------+
+|   1 |   1001 |      101 | FN     | 2019-02-15     |
+|   2 |   1002 |      102 | FN     | 2020-06-15     |
+|   3 |   1003 |      103 | AN     | 2020-09-17     |
+|   4 |   1004 |      104 | AN     | 2020-07-24     |
+|   5 |   1005 |      105 | AN     | 2019-11-20     |
++-----+--------+----------+--------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> notee

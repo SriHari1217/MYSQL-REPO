@@ -1,0 +1,15 @@
+mysql> select * from studentprofile;
++--------+-------+-------------+------------+--------+
+| rollno | name  | dateofbirth | department | city   |
++--------+-------+-------------+------------+--------+
+|    101 | Adam  | 2003-06-05  | ECE        | Covai  |
+|    102 | Eve   | 2003-05-25  | EEE        | Erode  |
+|    103 | vimal | 2003-08-15  | MECH       | delhi  |
+|    105 | Chloe | 2003-10-25  | ECE        | Mumbai |
++--------+-------+-------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select * from marks;
+Empty set (0.01 sec)
+
+mysql> notee

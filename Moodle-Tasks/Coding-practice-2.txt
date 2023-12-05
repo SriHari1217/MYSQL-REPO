@@ -1,0 +1,260 @@
+mysql> select * from ecommerce;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Lays                       | chips    |    20 | Pepsico    |    3.6 |
+| horlicks                   | Powder   |   210 | Glaxosmith |    3.9 |
++----------------------------+----------+-------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into ecommerce(
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from ecommerce;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Lays                       | chips    |    20 | Pepsico    |    3.6 |
+| horlicks                   | Powder   |   210 | Glaxosmith |    3.9 |
++----------------------------+----------+-------+------------+--------+
+6 rows in set (0.06 sec)
+
+mysql> insert into ecommerce values('Black jeaens','clothing',1250,'Denim',4.2),('Black Sneakers','Shoes',650,'Puma',4.4),('Foot ball','Sports',250,'Nike',4.0),('Note 11 pro','Mobile',1450,'Redmi',4.2),('11R pro','Mobile',1250,'Oneplus',4.1),('Cake','Cakes',250,'Cadburry',4.0);
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> selct * from ecommerce
+    -> where category=clothing and price<800;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from ecommerce
+where category=clothing and price<800' at line 1
+mysql> where category='clothing' and price<800;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where category='clothing' and price<800' at line 1
+mysql> select * from ecommerce;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Lays                       | chips    |    20 | Pepsico    |    3.6 |
+| horlicks                   | Powder   |   210 | Glaxosmith |    3.9 |
+| Black jeaens               | clothing |  1250 | Denim      |    4.2 |
+| Black Sneakers             | Shoes    |   650 | Puma       |    4.4 |
+| Foot ball                  | Sports   |   250 | Nike       |    4.0 |
+| Note 11 pro                | Mobile   |  1450 | Redmi      |    4.2 |
+| 11R pro                    | Mobile   |  1250 | Oneplus    |    4.1 |
+| Cake                       | Cakes    |   250 | Cadburry   |    4.0 |
++----------------------------+----------+-------+------------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where category='clothing';
++--------------+----------+-------+------------+--------+
+| name         | category | price | brand      | rating |
++--------------+----------+-------+------------+--------+
+| Black Shirt  | clothing |   900 | Puma       |    4.8 |
+| Blue jeans   | clothing |   750 | Lee-Cooper |    4.6 |
+| Black jeaens | clothing |  1250 | Denim      |    4.2 |
++--------------+----------+-------+------------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where category='clothing' and price<800;
++------------+----------+-------+------------+--------+
+| name       | category | price | brand      | rating |
++------------+----------+-------+------------+--------+
+| Blue jeans | clothing |   750 | Lee-Cooper |    4.6 |
++------------+----------+-------+------------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where name ='Denim';
+Empty set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where category ='Denim';
+Empty set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where brand ='Denim';
++--------------+----------+-------+-------+--------+
+| name         | category | price | brand | rating |
++--------------+----------+-------+-------+--------+
+| Black jeaens | clothing |  1250 | Denim |    4.2 |
++--------------+----------+-------+-------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where rating=4.0 and price<=1000;
++-----------+----------+-------+----------+--------+
+| name      | category | price | brand    | rating |
++-----------+----------+-------+----------+--------+
+| Foot ball | Sports   |   250 | Nike     |    4.0 |
+| Cake      | Cakes    |   250 | Cadburry |    4.0 |
++-----------+----------+-------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where rating>4.0 and price<=1000;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Black Sneakers             | Shoes    |   650 | Puma       |    4.4 |
++----------------------------+----------+-------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where rating>3.6 and price<100 and brand='Puma';
+Empty set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where rating>3.6 and price<1000 and brand='Puma';
++----------------+----------+-------+-------+--------+
+| name           | category | price | brand | rating |
++----------------+----------+-------+-------+--------+
+| Black Shirt    | clothing |   900 | Puma  |    4.8 |
+| Black Sneakers | Shoes    |   650 | Puma  |    4.4 |
++----------------+----------+-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where brand in('Puma','Denim','Nike');
++----------------+----------+-------+-------+--------+
+| name           | category | price | brand | rating |
++----------------+----------+-------+-------+--------+
+| Black Shirt    | clothing |   900 | Puma  |    4.8 |
+| Black jeaens   | clothing |  1250 | Denim |    4.2 |
+| Black Sneakers | Shoes    |   650 | Puma  |    4.4 |
+| Foot ball      | Sports   |   250 | Nike  |    4.0 |
++----------------+----------+-------+-------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where brand=('Cadburry' and brand='Britania') and rating>4.0;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Black jeaens               | clothing |  1250 | Denim      |    4.2 |
+| Black Sneakers             | Shoes    |   650 | Puma       |    4.4 |
+| Note 11 pro                | Mobile   |  1450 | Redmi      |    4.2 |
+| 11R pro                    | Mobile   |  1250 | Oneplus    |    4.1 |
++----------------------------+----------+-------+------------+--------+
+8 rows in set, 13 warnings (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where brand='Cadburry' and brand='Britania' and rating>4.0;
+Empty set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where brand=('Cadburry' or brand='Britania') and rating>4.0;
++----------------+----------+-------+------------+--------+
+| name           | category | price | brand      | rating |
++----------------+----------+-------+------------+--------+
+| Black Shirt    | clothing |   900 | Puma       |    4.8 |
+| Blue jeans     | clothing |   750 | Lee-Cooper |    4.6 |
+| Black jeaens   | clothing |  1250 | Denim      |    4.2 |
+| Black Sneakers | Shoes    |   650 | Puma       |    4.4 |
+| Note 11 pro    | Mobile   |  1450 | Redmi      |    4.2 |
+| 11R pro        | Mobile   |  1250 | Oneplus    |    4.1 |
++----------------+----------+-------+------------+--------+
+6 rows in set, 13 warnings (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where (brand='Cadburry' or brand='Britania') and rating>4.0;
++----------------------------+----------+-------+----------+--------+
+| name                       | category | price | brand    | rating |
++----------------------------+----------+-------+----------+--------+
+| Bourbon Small              | Biscuits |    50 | Britania |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania |    4.4 |
++----------------------------+----------+-------+----------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select name from ecommerce
+    -> where (brand='Cadburry' or brand='Britania') and rating>4.0;
++----------------------------+
+| name                       |
++----------------------------+
+| Bourbon Small              |
+| Bourbon with extra cookies |
++----------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where (brand='Puma' and rating>3.5) or (brand='Denim' and rating>4.0);
++----------------+----------+-------+-------+--------+
+| name           | category | price | brand | rating |
++----------------+----------+-------+-------+--------+
+| Black Shirt    | clothing |   900 | Puma  |    4.8 |
+| Black jeaens   | clothing |  1250 | Denim |    4.2 |
+| Black Sneakers | Shoes    |   650 | Puma  |    4.4 |
++----------------+----------+-------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into ecommerce values('Blue shirt','clothing',800,'Lewis',4.1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where brand in('Puma','Nike','Lewis') and name like '%shirt';
++-------------+----------+-------+-------+--------+
+| name        | category | price | brand | rating |
++-------------+----------+-------+-------+--------+
+| Black Shirt | clothing |   900 | Puma  |    4.8 |
+| Blue shirt  | clothing |   800 | Lewis |    4.1 |
++-------------+----------+-------+-------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where brand in('Puma','Nike','Lewis') not name like 'Black%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not name like 'Black%'' at line 2
+mysql> select * from ecommerce
+    -> where brand in('Puma','Nike','Lewis') and name like 'Black%';
++----------------+----------+-------+-------+--------+
+| name           | category | price | brand | rating |
++----------------+----------+-------+-------+--------+
+| Black Shirt    | clothing |   900 | Puma  |    4.8 |
+| Black Sneakers | Shoes    |   650 | Puma  |    4.4 |
++----------------+----------+-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where brand in('Puma','Nike','Lewis') not name like 'Black%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not name like 'Black%'' at line 2
+mysql> where brand in('Puma','Nike','Lewis') NOT name like 'Black%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where brand in('Puma','Nike','Lewis') NOT name like 'Black%'' at line 1
+mysql> select * from ecommerce
+    -> where not name like 'Black%' and brand in('Puma','Nike','Lewis');
++------------+----------+-------+-------+--------+
+| name       | category | price | brand | rating |
++------------+----------+-------+-------+--------+
+| Foot ball  | Sports   |   250 | Nike  |    4.0 |
+| Blue shirt | clothing |   800 | Lewis |    4.1 |
++------------+----------+-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where (not name like 'Black%'and name like '%shirt') and brand in('Puma','Nike','Lewis');
++------------+----------+-------+-------+--------+
+| name       | category | price | brand | rating |
++------------+----------+-------+-------+--------+
+| Blue shirt | clothing |   800 | Lewis |    4.1 |
++------------+----------+-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> notee

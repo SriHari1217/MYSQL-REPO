@@ -1,0 +1,249 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| day1               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> create database Assignments;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use Assignments;
+Database changed
+mysql> create table Hotel()
+    -> create table Hotel()
+    -> create table Hotel(
+    -> sdfghvv0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+create table Hotel()
+create table Hotel(
+sdfghvv0' at line 1
+mysql> create table Hotel(
+    -> hotelno int,
+    -> hotelname varchar(20),
+    -> city varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table Room(
+    -> roomno int,
+    -> hotelno int,
+    -> type enum('single','double','family','suit'),
+    -> price decimal(8,2));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create Booking(
+    -> hotelno int,
+    -> guestno int,
+    -> datefrom date,
+    -> dateto date,
+    -> roomno int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Booking(
+hotelno int,
+guestno int,
+datefrom date,
+dateto date,
+roomno int)' at line 1
+mysql> create Booking(
+    ->     -> hotelno int,
+    ->     -> guestno int,
+    ->     -> datefrom date,
+    ->     -> dateto date,
+    -> roomno int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Booking(
+    -> hotelno int,
+    -> guestno int,
+    -> datefrom date,
+    -> da' at line 1
+mysql> create table Booking(
+    -> hotelno int,
+    -> guestno int,
+    -> datefrom date,
+    -> dateto date,
+    -> roomno int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_assignments |
++-----------------------+
+| booking               |
+| hotel                 |
+| room                  |
++-----------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into hotel values(1001,'Hotel Residency','Coimbatore'),(1002,'Acacia','Mumbai'),(1003,'Lemon Tree','Ooty'),(1004,'Life Style','Bangalore'),(1005,'Lee Meridian','Chennai');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * hotel;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hotel' at line 1
+mysql> select * from hotel;
++---------+-----------------+------------+
+| hotelno | hotelname       | city       |
++---------+-----------------+------------+
+|    1001 | Hotel Residency | Coimbatore |
+|    1002 | Acacia          | Mumbai     |
+|    1003 | Lemon Tree      | Ooty       |
+|    1004 | Life Style      | Bangalore  |
+|    1005 | Lee Meridian    | Chennai    |
++---------+-----------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into room values(101,1002,'single',5000.35),(103,1001,'double',10000.35),(105,1005,'suit',25000.65),(104,1004,'family',15000.25),(102,1003,'single',5000.35);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from room;
++--------+---------+--------+----------+
+| roomno | hotelno | type   | price    |
++--------+---------+--------+----------+
+|    101 |    1002 | single |  5000.35 |
+|    103 |    1001 | double | 10000.35 |
+|    105 |    1005 | suit   | 25000.65 |
+|    104 |    1004 | family | 15000.25 |
+|    102 |    1003 | single |  5000.35 |
++--------+---------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> create table guest;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table guest(
+    -> guestno int,
+    -> guestname varchar(20),
+    -> guestaddress varchar(255));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into guest values(1,'Allen','saravanampatti,coimbatore'),(2,'Adam','Jaipur,Rajastan'),(3,'Tony','NewDelhi'),(4,'Charlie','Rasipuram,Namakkal'),(5,'Chloe','gandhipuram,Coimbatore');
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from guest;
++---------+-----------+---------------------------+
+| guestno | guestname | guestaddress              |
++---------+-----------+---------------------------+
+|       1 | Allen     | saravanampatti,coimbatore |
+|       2 | Adam      | Jaipur,Rajastan           |
+|       3 | Tony      | NewDelhi                  |
+|       4 | Charlie   | Rasipuram,Namakkal        |
+|       5 | Chloe     | gandhipuram,Coimbatore    |
++---------+-----------+---------------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into booking(1001,2,'2019-02-14','2019-02-16',101),(1002,1,'2019-03-25','2019-03-26',102),(1003,3,'2019-08-14','2019-08-16',103),(1004,4,'2019-10-14','2019-10-16',104),(1005,5,'2019-06-12','2019-06-14',105);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1001,2,'2019-02-14','2019-02-16',101),(1002,1,'2019-03-25','2019-03-26',102),(10' at line 1
+mysql> insert into booking values(1001,2,'2019-02-14','2019-02-16',101),(1002,1,'2019-03-25','2019-03-26',102),(1003,3,'2019-08-14','2019-08-16',103),(1004,4,'2019-10-14','2019-10-16',104),(1005,5,'2019-06-12','2019-06-14',105);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from booking;
++---------+---------+------------+------------+--------+
+| hotelno | guestno | datefrom   | dateto     | roomno |
++---------+---------+------------+------------+--------+
+|    1001 |       2 | 2019-02-14 | 2019-02-16 |    101 |
+|    1002 |       1 | 2019-03-25 | 2019-03-26 |    102 |
+|    1003 |       3 | 2019-08-14 | 2019-08-16 |    103 |
+|    1004 |       4 | 2019-10-14 | 2019-10-16 |    104 |
+|    1005 |       5 | 2019-06-12 | 2019-06-14 |    105 |
++---------+---------+------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update room set price=(10000.25*0.15)+10000.25 where type=double;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'double' at line 1
+mysql> update room set price=(10000.25*0.15)+10000.25 where type='double';
+Query OK, 1 row affected, 1 warning (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> select * from room;
++--------+---------+--------+----------+
+| roomno | hotelno | type   | price    |
++--------+---------+--------+----------+
+|    101 |    1002 | single |  5000.35 |
+|    103 |    1001 | double | 11500.29 |
+|    105 |    1005 | suit   | 25000.65 |
+|    104 |    1004 | family | 15000.25 |
+|    102 |    1003 | single |  5000.35 |
++--------+---------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table room add ac enum('ac','non-ac');
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from room;
++--------+---------+--------+----------+------+
+| roomno | hotelno | type   | price    | ac   |
++--------+---------+--------+----------+------+
+|    101 |    1002 | single |  5000.35 | NULL |
+|    103 |    1001 | double | 11500.29 | NULL |
+|    105 |    1005 | suit   | 25000.65 | NULL |
+|    104 |    1004 | family | 15000.25 | NULL |
+|    102 |    1003 | single |  5000.35 | NULL |
++--------+---------+--------+----------+------+
+5 rows in set (0.00 sec)
+
+mysql> update room set ac='ac'where hotelno=1002;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update room set ac='ac'where hotelno=1002;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> update room set ac='ac'where hotelno=1003;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update room set ac='non-ac'where hotelno=1004;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update room set ac='non-ac'where hotelno=1001;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update room set ac='ac'where hotelno=1005;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from room;
++--------+---------+--------+----------+--------+
+| roomno | hotelno | type   | price    | ac     |
++--------+---------+--------+----------+--------+
+|    101 |    1002 | single |  5000.35 | ac     |
+|    103 |    1001 | double | 11500.29 | non-ac |
+|    105 |    1005 | suit   | 25000.65 | ac     |
+|    104 |    1004 | family | 15000.25 | non-ac |
+|    102 |    1003 | single |  5000.35 | ac     |
++--------+---------+--------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from hotel;
++---------+-----------------+------------+
+| hotelno | hotelname       | city       |
++---------+-----------------+------------+
+|    1001 | Hotel Residency | Coimbatore |
+|    1002 | Acacia          | Mumbai     |
+|    1003 | Lemon Tree      | Ooty       |
+|    1004 | Life Style      | Bangalore  |
+|    1005 | Lee Meridian    | Chennai    |
++---------+-----------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> notee
+    -> tee D:\Sri\KGM\MySQL\Task-2.txt
+ERROR: 
+Unknown command '\S'.
+ERROR: 
+Unknown command '\K'.
+ERROR: 
+Unknown command '\M'.
+Currently logging to file 'D:\Sri\KGM\MySQL\Task1.txt'
+    -> Terminal close -- exit!

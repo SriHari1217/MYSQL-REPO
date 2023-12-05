@@ -1,0 +1,285 @@
+mysql> select 'SriHari'
+    -> ;
++---------+
+| SriHari |
++---------+
+| SriHari |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select substr('Srihari',4,1);
++-----------------------+
+| substr('Srihari',4,1) |
++-----------------------+
+| h                     |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from emp;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal     | comm    | deptno |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,job,hiredate,floor(datediff(hiredate,'2020-10-11')/365) as "Experience in Years"
+    -> floor(datediff(hiredate,'2020-10-11')/30) as "Experience in Months"
+    -> floor(datediff(hiredate,'2020-10-11')) as "Experience in Days" from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'floor(datediff(hiredate,'2020-10-11')/30) as "Experience in Months"
+floor(datedi' at line 2
+mysql> select ename,job,hiredate,floor(datediff(hiredate,'2020-10-11')/365) as "Experience in Years",floor(datediff(hiredate,'2020-10-11')/30) as "Experience in Months",floor(datediff(hiredate,'2020-10-11')) as "Experience in Days" from emp;
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| ename  | job       | hiredate   | Experience in Years | Experience in Months | Experience in Days |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| SMITH  | CLERK     | 1980-12-17 |                 -40 |                 -485 |             -14543 |
+| ALLEN  | SALESMAN  | 1981-02-20 |                 -40 |                 -483 |             -14478 |
+| WARD   | SALESMAN  | 1981-02-22 |                 -40 |                 -483 |             -14476 |
+| JONES  | MANAGER   | 1981-04-02 |                 -40 |                 -482 |             -14437 |
+| MARTIN | SALESMAN  | 1981-09-28 |                 -40 |                 -476 |             -14258 |
+| BLAKE  | MANAGER   | 1981-05-01 |                 -40 |                 -481 |             -14408 |
+| CLARK  | MANAGER   | 1981-06-09 |                 -40 |                 -479 |             -14369 |
+| SCOTT  | ANALYST   | 1982-12-09 |                 -38 |                 -461 |             -13821 |
+| KING   | PRESIDENT | 1981-11-17 |                 -39 |                 -474 |             -14208 |
+| TURNER | SALESMAN  | 1981-09-08 |                 -40 |                 -476 |             -14278 |
+| ADAMS  | CLERK     | 1983-01-12 |                 -38 |                 -460 |             -13787 |
+| JAMES  | CLERK     | 1981-12-03 |                 -39 |                 -474 |             -14192 |
+| FORD   | ANALYST   | 1981-12-03 |                 -39 |                 -474 |             -14192 |
+| MILLER | CLERK     | 1982-01-23 |                 -39 |                 -472 |             -14141 |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,job,hiredate,floor(datediff(hiredate,'2020-10-11')/365) as "Experience in Years",floor(datediff(hiredate,'2020-10-11')/30) as "Experience in Months",floor(datediff('2020-10-11',hiredate)) as "Experience in Days" from emp;
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| ename  | job       | hiredate   | Experience in Years | Experience in Months | Experience in Days |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| SMITH  | CLERK     | 1980-12-17 |                 -40 |                 -485 |              14543 |
+| ALLEN  | SALESMAN  | 1981-02-20 |                 -40 |                 -483 |              14478 |
+| WARD   | SALESMAN  | 1981-02-22 |                 -40 |                 -483 |              14476 |
+| JONES  | MANAGER   | 1981-04-02 |                 -40 |                 -482 |              14437 |
+| MARTIN | SALESMAN  | 1981-09-28 |                 -40 |                 -476 |              14258 |
+| BLAKE  | MANAGER   | 1981-05-01 |                 -40 |                 -481 |              14408 |
+| CLARK  | MANAGER   | 1981-06-09 |                 -40 |                 -479 |              14369 |
+| SCOTT  | ANALYST   | 1982-12-09 |                 -38 |                 -461 |              13821 |
+| KING   | PRESIDENT | 1981-11-17 |                 -39 |                 -474 |              14208 |
+| TURNER | SALESMAN  | 1981-09-08 |                 -40 |                 -476 |              14278 |
+| ADAMS  | CLERK     | 1983-01-12 |                 -38 |                 -460 |              13787 |
+| JAMES  | CLERK     | 1981-12-03 |                 -39 |                 -474 |              14192 |
+| FORD   | ANALYST   | 1981-12-03 |                 -39 |                 -474 |              14192 |
+| MILLER | CLERK     | 1982-01-23 |                 -39 |                 -472 |              14141 |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+14 rows in set (0.01 sec)
+
+mysql> select ename,job,hiredate,floor(datediff(hiredate,'2020-10-11')/365) as "Experience in Years",floor(datediff('2020-10-11',hiredate)/30) as "Experience in Months",floor(datediff('2020-10-11',hiredate)) as "Experience in Days" from emp;
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| ename  | job       | hiredate   | Experience in Years | Experience in Months | Experience in Days |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| SMITH  | CLERK     | 1980-12-17 |                 -40 |                  484 |              14543 |
+| ALLEN  | SALESMAN  | 1981-02-20 |                 -40 |                  482 |              14478 |
+| WARD   | SALESMAN  | 1981-02-22 |                 -40 |                  482 |              14476 |
+| JONES  | MANAGER   | 1981-04-02 |                 -40 |                  481 |              14437 |
+| MARTIN | SALESMAN  | 1981-09-28 |                 -40 |                  475 |              14258 |
+| BLAKE  | MANAGER   | 1981-05-01 |                 -40 |                  480 |              14408 |
+| CLARK  | MANAGER   | 1981-06-09 |                 -40 |                  478 |              14369 |
+| SCOTT  | ANALYST   | 1982-12-09 |                 -38 |                  460 |              13821 |
+| KING   | PRESIDENT | 1981-11-17 |                 -39 |                  473 |              14208 |
+| TURNER | SALESMAN  | 1981-09-08 |                 -40 |                  475 |              14278 |
+| ADAMS  | CLERK     | 1983-01-12 |                 -38 |                  459 |              13787 |
+| JAMES  | CLERK     | 1981-12-03 |                 -39 |                  473 |              14192 |
+| FORD   | ANALYST   | 1981-12-03 |                 -39 |                  473 |              14192 |
+| MILLER | CLERK     | 1982-01-23 |                 -39 |                  471 |              14141 |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,job,hiredate,floor(datediff('2020-10-11',hiredate)/365) as "Experience in Years",floor(datediff('2020-10-11',hiredate)/30) as "Experience in Months",floor(datediff('2020-10-11',hiredate)) as "Experience in Days" from emp;
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| ename  | job       | hiredate   | Experience in Years | Experience in Months | Experience in Days |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+| SMITH  | CLERK     | 1980-12-17 |                  39 |                  484 |              14543 |
+| ALLEN  | SALESMAN  | 1981-02-20 |                  39 |                  482 |              14478 |
+| WARD   | SALESMAN  | 1981-02-22 |                  39 |                  482 |              14476 |
+| JONES  | MANAGER   | 1981-04-02 |                  39 |                  481 |              14437 |
+| MARTIN | SALESMAN  | 1981-09-28 |                  39 |                  475 |              14258 |
+| BLAKE  | MANAGER   | 1981-05-01 |                  39 |                  480 |              14408 |
+| CLARK  | MANAGER   | 1981-06-09 |                  39 |                  478 |              14369 |
+| SCOTT  | ANALYST   | 1982-12-09 |                  37 |                  460 |              13821 |
+| KING   | PRESIDENT | 1981-11-17 |                  38 |                  473 |              14208 |
+| TURNER | SALESMAN  | 1981-09-08 |                  39 |                  475 |              14278 |
+| ADAMS  | CLERK     | 1983-01-12 |                  37 |                  459 |              13787 |
+| JAMES  | CLERK     | 1981-12-03 |                  38 |                  473 |              14192 |
+| FORD   | ANALYST   | 1981-12-03 |                  38 |                  473 |              14192 |
+| MILLER | CLERK     | 1982-01-23 |                  38 |                  471 |              14141 |
++--------+-----------+------------+---------------------+----------------------+--------------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,job,hiredate,adddate(hiredate,interval 8 month) as "Date of Joining" from emp;
++--------+-----------+------------+-----------------+
+| ename  | job       | hiredate   | Date of Joining |
++--------+-----------+------------+-----------------+
+| SMITH  | CLERK     | 1980-12-17 | 1981-08-17      |
+| ALLEN  | SALESMAN  | 1981-02-20 | 1981-10-20      |
+| WARD   | SALESMAN  | 1981-02-22 | 1981-10-22      |
+| JONES  | MANAGER   | 1981-04-02 | 1981-12-02      |
+| MARTIN | SALESMAN  | 1981-09-28 | 1982-05-28      |
+| BLAKE  | MANAGER   | 1981-05-01 | 1982-01-01      |
+| CLARK  | MANAGER   | 1981-06-09 | 1982-02-09      |
+| SCOTT  | ANALYST   | 1982-12-09 | 1983-08-09      |
+| KING   | PRESIDENT | 1981-11-17 | 1982-07-17      |
+| TURNER | SALESMAN  | 1981-09-08 | 1982-05-08      |
+| ADAMS  | CLERK     | 1983-01-12 | 1983-09-12      |
+| JAMES  | CLERK     | 1981-12-03 | 1982-08-03      |
+| FORD   | ANALYST   | 1981-12-03 | 1982-08-03      |
+| MILLER | CLERK     | 1982-01-23 | 1982-09-23      |
++--------+-----------+------------+-----------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,sal,sal*0.12 as "PF",sal*0.08 as "HRA",sal*0.36 as "DA" from emp;
++--------+---------+----------+----------+-----------+
+| ename  | sal     | PF       | HRA      | DA        |
++--------+---------+----------+----------+-----------+
+| SMITH  |  800.00 |  96.0000 |  64.0000 |  288.0000 |
+| ALLEN  | 1600.00 | 192.0000 | 128.0000 |  576.0000 |
+| WARD   | 1250.00 | 150.0000 | 100.0000 |  450.0000 |
+| JONES  | 2975.00 | 357.0000 | 238.0000 | 1071.0000 |
+| MARTIN | 1250.00 | 150.0000 | 100.0000 |  450.0000 |
+| BLAKE  | 2850.00 | 342.0000 | 228.0000 | 1026.0000 |
+| CLARK  | 2450.00 | 294.0000 | 196.0000 |  882.0000 |
+| SCOTT  | 3000.00 | 360.0000 | 240.0000 | 1080.0000 |
+| KING   | 5000.00 | 600.0000 | 400.0000 | 1800.0000 |
+| TURNER | 1500.00 | 180.0000 | 120.0000 |  540.0000 |
+| ADAMS  | 1100.00 | 132.0000 |  88.0000 |  396.0000 |
+| JAMES  |  950.00 | 114.0000 |  76.0000 |  342.0000 |
+| FORD   | 3000.00 | 360.0000 | 240.0000 | 1080.0000 |
+| MILLER | 1300.00 | 156.0000 | 104.0000 |  468.0000 |
++--------+---------+----------+----------+-----------+
+14 rows in set (0.00 sec)
+
+mysql> select length('Sri Hari') as "Length Of my Name";
++-------------------+
+| Length Of my Name |
++-------------------+
+|                 8 |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> select adddate('2019-02-17',interval 25 year) as "My 25th Birthday";
++------------------+
+| My 25th Birthday |
++------------------+
+| 2044-02-17       |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> select adddate('2002-02-17',interval 25 year) as "My 25th Birthday";
++------------------+
+| My 25th Birthday |
++------------------+
+| 2027-02-17       |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select datediff('2002-02-17',2023-02-17)/365 as "My Age in Days", datediff('2002-02-17',2023-02-17)/30 as "My Age in Months", datediff('2002-02-17',2023-02-17) as "My Age in Years";
++----------------+------------------+-----------------+
+| My Age in Days | My Age in Months | My Age in Years |
++----------------+------------------+-----------------+
+|           NULL |             NULL |            NULL |
++----------------+------------------+-----------------+
+1 row in set, 3 warnings (0.01 sec)
+
+mysql> select datediff('2002-02-17','2023-02-17')/365 as "My Age in Days", datediff('2002-02-17','2023-02-17')/30 as "My Age in Months", datediff('2002-02-17','2023-02-17') as "My Age in Years";
++----------------+------------------+-----------------+
+| My Age in Days | My Age in Months | My Age in Years |
++----------------+------------------+-----------------+
+|       -21.0137 |        -255.6667 |           -7670 |
++----------------+------------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select datediff('2023-02-17','2002-02-17')/365 as "My Age in Days", datediff('2023-02-17','2002-02-17')/30 as "My Age in Months", datediff('2023-02-17','2002-02-17') as "My Age in Days";
++----------------+------------------+----------------+
+| My Age in Days | My Age in Months | My Age in Days |
++----------------+------------------+----------------+
+|        21.0137 |         255.6667 |           7670 |
++----------------+------------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp
+    -> where date_format(hirdate,%a)='mon';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%a)='mon'' at line 2
+mysql> select * from emp
+    -> where date_format(hiredate,'%a')='mon';
++-------+--------+----------+------+------------+---------+---------+--------+
+| empno | ename  | job      | mgr  | hiredate   | sal     | comm    | deptno |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
++-------+--------+----------+------+------------+---------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select floor(datediff(curdate(),'1947-08-15')/365) as "Years After Independence";
++--------------------------+
+| Years After Independence |
++--------------------------+
+|                       76 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp
+    -> where datediff(curdate(),hiredate)>41;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal     | comm    | deptno |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select * from emp
+    -> where datediff(curdate(),hiredate)<41;
+Empty set (0.00 sec)
+
+mysql> select ename ,comm,ifnull(comm,'NO COMMISSION') from emp;
++--------+---------+------------------------------+
+| ename  | comm    | ifnull(comm,'NO COMMISSION') |
++--------+---------+------------------------------+
+| SMITH  |    NULL | NO COMMISSION                |
+| ALLEN  |  300.00 | 300.00                       |
+| WARD   |  500.00 | 500.00                       |
+| JONES  |    NULL | NO COMMISSION                |
+| MARTIN | 1400.00 | 1400.00                      |
+| BLAKE  |    NULL | NO COMMISSION                |
+| CLARK  |    NULL | NO COMMISSION                |
+| SCOTT  |    NULL | NO COMMISSION                |
+| KING   |    NULL | NO COMMISSION                |
+| TURNER |    0.00 | 0.00                         |
+| ADAMS  |    NULL | NO COMMISSION                |
+| JAMES  |    NULL | NO COMMISSION                |
+| FORD   |    NULL | NO COMMISSION                |
+| MILLER |    NULL | NO COMMISSION                |
++--------+---------+------------------------------+
+14 rows in set (0.01 sec)
+
+mysql> notee

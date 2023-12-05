@@ -1,0 +1,70 @@
+mysql> create table player(
+    -> name varchar(20),
+    -> age int,
+    -> score int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into player values('Raj',26,120),('Charan',28,125),('Ram',28,12),('Ravan',20,152);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select* from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Raj    |   26 |   120 |
+| Charan |   28 |   125 |
+| Ram    |   28 |    12 |
+| Ravan  |   20 |   152 |
++--------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update marks set age=30
+    -> where name='Ram';
+ERROR 1054 (42S22): Unknown column 'age' in 'field list'
+mysql> update player set age=30
+    -> where name='Ram';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from player 
+    -> where name='Raj';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> alter table player add column strike_rate decimal(6,2);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select name,age from player
+    -> ;
++--------+------+
+| name   | age  |
++--------+------+
+| Charan |   28 |
+| Ram    |   30 |
+| Ravan  |   20 |
++--------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table player rename column name to full_name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select name,age from player;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select * from player;
++-----------+------+-------+-------------+
+| full_name | age  | score | strike_rate |
++-----------+------+-------+-------------+
+| Charan    |   28 |   125 |        NULL |
+| Ram       |   30 |    12 |        NULL |
+| Ravan     |   20 |   152 |        NULL |
++-----------+------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> drop table player;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from player;
+ERROR 1146 (42S02): Table 'assignments.player' doesn't exist
+mysql> notee

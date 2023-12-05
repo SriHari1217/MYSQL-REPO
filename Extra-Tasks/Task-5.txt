@@ -1,0 +1,126 @@
+mysql> select ename from emp
+    -> where length(ename)=4;
++-------+
+| ename |
++-------+
+| WARD  |
+| KING  |
+| FORD  |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select ename from emp
+    -> where ename like'J%%S';
++-------+
+| ename |
++-------+
+| JONES |
+| JAMES |
++-------+
+2 rows in set (0.01 sec)
+
+mysql> select concat(ename,'earns',sal,'but',3*sal) from emp;
++---------------------------------------+
+| concat(ename,'earns',sal,'but',3*sal) |
++---------------------------------------+
+| SMITHearns800.00but2400.00            |
+| ALLENearns1600.00but4800.00           |
+| WARDearns1250.00but3750.00            |
+| JONESearns2975.00but8925.00           |
+| MARTINearns1250.00but3750.00          |
+| BLAKEearns2850.00but8550.00           |
+| CLARKearns2450.00but7350.00           |
+| SCOTTearns3000.00but9000.00           |
+| KINGearns5000.00but15000.00           |
+| TURNERearns1500.00but4500.00          |
+| ADAMSearns1100.00but3300.00           |
+| JAMESearns950.00but2850.00            |
+| FORDearns3000.00but9000.00            |
+| MILLERearns1300.00but3900.00          |
++---------------------------------------+
+14 rows in set (0.01 sec)
+
+mysql> select concat(ename,' earns ',sal,' but Wants ',3*sal) as "Employees Expectation" from emp;
++----------------------------------------+
+| Employees Expectation                  |
++----------------------------------------+
+| SMITH earns 800.00 but Wants 2400.00   |
+| ALLEN earns 1600.00 but Wants 4800.00  |
+| WARD earns 1250.00 but Wants 3750.00   |
+| JONES earns 2975.00 but Wants 8925.00  |
+| MARTIN earns 1250.00 but Wants 3750.00 |
+| BLAKE earns 2850.00 but Wants 8550.00  |
+| CLARK earns 2450.00 but Wants 7350.00  |
+| SCOTT earns 3000.00 but Wants 9000.00  |
+| KING earns 5000.00 but Wants 15000.00  |
+| TURNER earns 1500.00 but Wants 4500.00 |
+| ADAMS earns 1100.00 but Wants 3300.00  |
+| JAMES earns 950.00 but Wants 2850.00   |
+| FORD earns 3000.00 but Wants 9000.00   |
+| MILLER earns 1300.00 but Wants 3900.00 |
++----------------------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select round(sal*0.28+sal) as "increases salary" from emp;
++------------------+
+| increases salary |
++------------------+
+|             1024 |
+|             2048 |
+|             1600 |
+|             3808 |
+|             1600 |
+|             3648 |
+|             3136 |
+|             3840 |
+|             6400 |
+|             1920 |
+|             1408 |
+|             1216 |
+|             3840 |
+|             1664 |
++------------------+
+14 rows in set (0.01 sec)
+
+mysql> select concat(substr(ename,1,4),substr(job,-3,3),'@kggroup.com') from emp;
++-----------------------------------------------------------+
+| concat(substr(ename,1,4),substr(job,-3,3),'@kggroup.com') |
++-----------------------------------------------------------+
+| SMITERK@kggroup.com                                       |
+| ALLEMAN@kggroup.com                                       |
+| WARDMAN@kggroup.com                                       |
+| JONEGER@kggroup.com                                       |
+| MARTMAN@kggroup.com                                       |
+| BLAKGER@kggroup.com                                       |
+| CLARGER@kggroup.com                                       |
+| SCOTYST@kggroup.com                                       |
+| KINGENT@kggroup.com                                       |
+| TURNMAN@kggroup.com                                       |
+| ADAMERK@kggroup.com                                       |
+| JAMEERK@kggroup.com                                       |
+| FORDYST@kggroup.com                                       |
+| MILLERK@kggroup.com                                       |
++-----------------------------------------------------------+
+14 rows in set (0.00 sec)
+mysql> select lower(concat(substr(ename,1,4),substr(job,-3,3),'@kggroup.com')) as email from emp;
++---------------------+
+| email               |
++---------------------+
+| smiterk@kggroup.com |
+| alleman@kggroup.com |
+| wardman@kggroup.com |
+| joneger@kggroup.com |
+| martman@kggroup.com |
+| blakger@kggroup.com |
+| clarger@kggroup.com |
+| scotyst@kggroup.com |
+| kingent@kggroup.com |
+| turnman@kggroup.com |
+| adamerk@kggroup.com |
+| jameerk@kggroup.com |
+| fordyst@kggroup.com |
+| millerk@kggroup.com |
++---------------------+
+14 rows in set (0.00 sec)
+
+mysql> notee

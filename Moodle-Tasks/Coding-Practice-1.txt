@@ -1,0 +1,133 @@
+mysql> select database();
++-------------+
+| database()  |
++-------------+
+| assignments |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> create table e-commerce(
+    -> name varchar(20),
+    -> category varchar(20),
+    -> price int,
+    -> brand varchar(20),
+    -> rating float(2,1));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-commerce(
+name varchar(20),
+category varchar(20),
+price int,
+brand varchar(20),' at line 1
+mysql>  create table e-commerce(
+    ->     -> name varchar(20),
+    ->     -> category varchar(20),
+    ->     -> price int,
+    ->     -> brand varchar(20),
+    ->     -> rating float(2,1));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-commerce(
+    -> name varchar(20),
+    -> category varchar(20),
+    -> price in' at line 1
+mysql>  create table ecommerce(
+    -> name varchar(20),
+    -> category varchar(20),
+    -> price int,
+    -> brand varchar(20),
+    -> rating float(2,1));
+Query OK, 0 rows affected, 1 warning (0.11 sec)
+
+mysql> insert into ecommerce values('Black Shirt','clothing',900,'Puma',4.8),('Blue jeans','clothing',750,'Lee-Cooper','4.6'),('Bourbon Small','Biscuits',50,'Britania',4.2),('Bourbon with extra cookies','Biscuits',100,'Britania',4.4),('Lays','chips',20,'Pepsico',3.6),('horlicks','Powder',210,'Glaxosmith',3.9);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from ecommerce;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Lays                       | chips    |    20 | Pepsico    |    3.6 |
+| horlicks                   | Powder   |   210 | Glaxosmith |    3.9 |
++----------------------------+----------+-------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where brand='puma';
++-------------+----------+-------+-------+--------+
+| name        | category | price | brand | rating |
++-------------+----------+-------+-------+--------+
+| Black Shirt | clothing |   900 | Puma  |    4.8 |
++-------------+----------+-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where name like '%jeans';
++------------+----------+-------+------------+--------+
+| name       | category | price | brand      | rating |
++------------+----------+-------+------------+--------+
+| Blue jeans | clothing |   750 | Lee-Cooper |    4.6 |
++------------+----------+-------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where name like 'Bourboun%';
+Empty set (0.00 sec)
+
+mysql> where name like 'Bourbon%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where name like 'Bourbon%'' at line 1
+mysql> select * from ecommerce
+    -> where name like 'Bourbon%';
++----------------------------+----------+-------+----------+--------+
+| name                       | category | price | brand    | rating |
++----------------------------+----------+-------+----------+--------+
+| Bourbon Small              | Biscuits |    50 | Britania |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania |    4.4 |
++----------------------------+----------+-------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where category='chips';
++------+----------+-------+---------+--------+
+| name | category | price | brand   | rating |
++------+----------+-------+---------+--------+
+| Lays | chips    |    20 | Pepsico |    3.6 |
++------+----------+-------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where name like 'h_r%';
++----------+----------+-------+------------+--------+
+| name     | category | price | brand      | rating |
++----------+----------+-------+------------+--------+
+| horlicks | Powder   |   210 | Glaxosmith |    3.9 |
++----------+----------+-------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from ecommerce
+    -> where price<=1000;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
+| Lays                       | chips    |    20 | Pepsico    |    3.6 |
+| horlicks                   | Powder   |   210 | Glaxosmith |    3.9 |
++----------------------------+----------+-------+------------+--------+
+6 rows in set (0.01 sec)
+
+mysql> select * from ecommerce
+    -> where rating>4.0;
++----------------------------+----------+-------+------------+--------+
+| name                       | category | price | brand      | rating |
++----------------------------+----------+-------+------------+--------+
+| Black Shirt                | clothing |   900 | Puma       |    4.8 |
+| Blue jeans                 | clothing |   750 | Lee-Cooper |    4.6 |
+| Bourbon Small              | Biscuits |    50 | Britania   |    4.2 |
+| Bourbon with extra cookies | Biscuits |   100 | Britania   |    4.4 |
++----------------------------+----------+-------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> notee
